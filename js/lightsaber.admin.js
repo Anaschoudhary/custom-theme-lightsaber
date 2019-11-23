@@ -24,6 +24,15 @@ jQuery(document).ready(function($){
         });
 
         mediaUploader.open();
+    });
 
+    $('#remove-picture').on('click', function(e){
+        e.preventDefault();
+        var answer = confirm("Are you sure you want to remove the profile picture?");
+        if(answer == true){
+            $('#proifle-picture').val('');
+            $('.ls-general-form').submit();
+        }
+        return;
     });
 });

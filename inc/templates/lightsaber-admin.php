@@ -1,5 +1,5 @@
-<h1>Light Saber Theme Options</h1>
-
+<h1>LightSaber Sidebar Options</h1>
+<?php settings_errors(); ?>
 <?php
 $picture = esc_attr(get_option('profile_picture'));
 $firstName = esc_attr(get_option('first_name'));
@@ -21,12 +21,11 @@ $description = esc_attr(get_option('user_description'));
     </div>
 </div>
 
-<?php settings_errors(); ?>
 <form method="post" action="options.php" class="ls-general-form">
     <?php
         settings_fields('lightsaber-settings-group');
         do_settings_sections('light_saber'); 
-        submit_button();
+        submit_button('Save changes', 'primary', 'btnSubmit');
     ?>
 </form>
 
