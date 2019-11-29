@@ -15,14 +15,18 @@
      get_template_directory_uri(). '/img/lightsaber-icon.png', 110);
 
     //Generate admin sub pages
+    //add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function);
     add_submenu_page('light_saber', 'LightSaber Sidebar Options', 'Sidebar', 'manage_options', 'light_saber', 
     'lightsaber_theme_create_page');
 
     add_submenu_page('light_saber', 'LightSaber Theme Options', 'Theme Options', 'manage_options', 'light_saber_theme_options', 
     'lightsaber_theme_options_page');
-
+    add_submenu_page('light_saber', 'LightSaber Contact Form', 'Contact Form', 'manage_options', 'ls_theme_contact_page', 
+    'ls_contact_from_submenu_cb');
+   
     add_submenu_page('light_saber', 'LightSaber CSS Options', 'Custom CSS', 'manage_options', 'light_saber_css', 
     'lightsaber_theme_settings_page');
+    
 
     //Activate Custom Settings
     add_action('admin_init', 'lightsaber_custom_settings');
@@ -31,7 +35,7 @@
  add_action('admin_menu', 'lightsaber_add_admin_page');
 
  function lightsaber_custom_settings(){
-     //Sidebar options
+    //Sidebar options
     register_setting('lightsaber-settings-group', 'profile_picture');
     register_setting('lightsaber-settings-group', 'first_name');
     register_setting('lightsaber-settings-group', 'last_name');
@@ -59,10 +63,59 @@
     add_settings_field('ls-post-formats-field-id', 'Post Formats', 'ls_post_formats_field_callback', 'lightsaber_theme_options_page', 'ls-theme-option-section-id');
     add_settings_field('ls-custom-header-field-id', 'Custom Header', 'ls_post_custom_header_callback', 'lightsaber_theme_options_page', 'ls-theme-option-section-id');
     add_settings_field('ls-custom-background-field-id', 'Custom Background', 'ls_post_custom_background_callback', 'lightsaber_theme_options_page', 'ls-theme-option-section-id');
+
+    //Contact Form Options
+    register_setting('ls-contact-setting-group', 'activate_contact');
+
+    add_settings_section('ls-contact-options-id', 'Contact Form', 'ls_contact_section_cb', 'ls_theme_contact_page');
+
+    add_settings_field('ls-contact-field-id', 'Activate Contact Form', 'ls_contact_field_cb', 'ls_theme_contact_page', 'ls-contact-options-id');
+
+    //Custom CSS Options
+    register_setting('ls-custom-css-options', 'ls_css', 'ls_sanitize_custom_css_cb');
+
+    add_settings_section('ls-custom-css-section-id', 'Custom CSS', 'ls_custom_css_section_cb', 'light_saber_css');
+
+    add_settings_field('ls-custom-css-field-id', 'Insert Your Custom CSS', 'ls_custom_css_field_cb', 'light_saber_css', 'ls-custom-css-section-id');
  }
 
+//Custom CSS Section callback functions
+function ls_custom_css_section_cb(){
+   echo "Customize LightSaber Theme with your own CSS";
+}
 
- //Post formats callback function
+function ls_custom_css_field_cb(){
+   $css = get_option('ls_css');
+   $css = ( empty($css) ? '/*LightSaber Theme Custom CSS*/' : $css );
+   echo'<div id="customCss">'.$css.'</div><textarea id="ls_css" name="ls_css" style="display:none;visiblity:hidden">
+   '.$css.'</textarea>';    
+ }
+
+ function lightsaber_theme_settings_page(){
+   require_once(get_template_directory(). '/inc/templates/ls-custom-css.php');
+ }
+
+function ls_sanitize_custom_css_cb( $input ){
+   $output = esc_textarea($input);
+   return $output;
+} 
+
+ //Contact form callback functions
+ function ls_contact_section_cb(){
+   echo "Activate and Deactivate Built-in Contact Form";
+}
+
+function ls_contact_field_cb(){
+   $options = get_option('activate_contact');
+   $checked = (@$options == 1 ? 'checked' : '');
+   echo'<label><input type="checkbox" id="activate_contact" name="activate_contact" value="1" '.$checked.'></label></br>';    
+ }
+
+ function ls_contact_from_submenu_cb(){
+   require_once(get_template_directory(). '/inc/templates/ls-contact-form.php');
+}
+
+ //Post formats callback functions
    function ls_theme_options_section_callback(){
      echo "Activate and Deactivate Theme Options here";
  }
@@ -152,7 +205,7 @@
  function lightsaber_theme_options_page(){
     require_once(get_template_directory(). '/inc/templates/lightsaber-theme-options.php');
  }
+ 
+ 
 
- function lightsaber_theme_settings_page(){
-     
- }
+ 
