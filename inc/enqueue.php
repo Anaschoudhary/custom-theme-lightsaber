@@ -45,6 +45,7 @@ add_action('admin_enqueue_scripts', 'lightsaber_load_admin_scripts');
 
     wp_enqueue_style('bootstrap', get_stylesheet_directory_uri().'/css/bootstrap.min.css');
     wp_enqueue_style('lightsaber', get_stylesheet_directory_uri().'/css/ls.css');
+    wp_enqueue_style('raleway', 'https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
     wp_deregister_script('jquery');
     wp_register_script('jquery', get_stylesheet_directory_uri().'/js/jquery.js', false, '3.4.1', true);
