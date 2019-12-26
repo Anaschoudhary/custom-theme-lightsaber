@@ -5,9 +5,9 @@
  *-- Audio Post Format --
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('ls-format-audio'); ?>>
 
-    <header class="entry-header text-center"> 
+    <header class="entry-header"> 
 
         <?php the_title('<h1 class="entry-title"><a href="'.esc_url( get_permalink()).'" rel="bookmark">', '</a></h1>') ?>
 
@@ -20,10 +20,7 @@
     <div class="enrty-content">
 
         <?php 
-            $content = do_shortcode(apply_filters('the_content', $post->post_content ));
-            $embed = get_media_embedded_in_content($content, array('audio', 'iframe'));
-
-            echo $embed[0];
+            echo ls_get_embedded_media(array('audio', 'iframe'));
         ?>
 
     </div><!--.entry-content-->

@@ -335,5 +335,30 @@ h1 {
     margin: 40px 0; }
 
 /*-End of Image Post Format Style-*/
+/*-Audio Post Format Style-*/
+.ls-format-audio h1 {
+  font-size: 30px; }
+  .ls-format-audio h1.entry-title {
+    display: inline-block;
+    margin-right: 20px; }
+    .ls-format-audio h1.entry-title:before, .ls-format-audio h1.entry-title:after {
+      display: none; }
+.ls-format-audio .entry-meta {
+  display: inline-block;
+  margin-bottom: 0; }
+.ls-format-audio .enrty-content iframe {
+  width: 100%;
+  height: 166px; }
+
+/*-End of  Audio Post Format Style-*/
+/*-Video Post Format Style-*/
+.ls-format-video header {
+  margin-top: 40px; }
+  .ls-format-video header h1 {
+    font-size: 30px; }
+    .ls-format-video header h1.entry-title {
+      margin-top: 20px; }
+
+/*-End of Video Post Format Style-*/
 
 /*# sourceMappingURL=ls.css.map */
