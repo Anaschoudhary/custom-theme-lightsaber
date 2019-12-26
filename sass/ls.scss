@@ -6,23 +6,20 @@
  * =======================
  */
 
-/* --Fonts Style-- */
-@font-face {
-    font-family: 'sunset-icon';
-    src:    url('../fonts/sunset-icon.eot?dxcjr7');
-    src:    url('../fonts/sunset-icon.eot?dxcjr7#iefix') format('embedded-opentype'),
-        url('../fonts/sunset-icon.ttf?dxcjr7') format('truetype'),
-        url('../fonts/sunset-icon.woff?dxcjr7') format('woff'),
-        url('../fonts/sunset-icon.svg?dxcjr7#sunset-icon') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+ @import 'base/variables';
+ @import 'base/mixin';
+ @import 'base/placeholder';
+ @import 'base/fonticon';
 
-.sunset-icon { font-family: 'sunset-icon' !important; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } .sunset-audio:before { content: "\e800"; } .sunset-chevron-left:before { content: "\e801"; } .sunset-chevron-right:before { content: "\e802"; } .sunset-close:before { content: "\e803"; } .sunset-comment:before { content: "\e804"; } .sunset-link:before { content: "\e805"; } .sunset-loading:before { content: "\e806"; } .sunset-logo:before { content: "\e807"; } .sunset-menu:before { content: "\e808"; } .sunset-pencil:before { content: "\e809"; } .sunset-pics:before { content: "\e80a"; } .sunset-search:before { content: "\e80b"; } .sunset-share:before { content: "\e80c"; } .sunset-tag:before { content: "\e80d"; } .sunset-video:before { content: "\e80e"; }
-/* --End Fonts Style-- */
 
 /* --Generic Style-- */
 body{font-family: 'Raleway', sans-serif;}
+a{
+  color: $primary-color;
+  @include animate(color, 320ms);
+  &:hover,
+  &:focus{ text-decoration: none; color: $dark-grey; }
+}
 
 .background-image{background-position: center center; background-size: cover; background-repeat: no-repeat;}
 
@@ -31,31 +28,15 @@ body{font-family: 'Raleway', sans-serif;}
 }
 /* --End of Generic Style-- */
 
-/* --Mixins-- */
-@mixin animate($attr, $time) {
-    -webkit-transition: $attr $time ease;
-    -moz-transition: $attr $time ease;
-    -ms-transition: $attr $time ease;
-    transition: $attr $time ease;
-}
-@mixin transform( $val ) {
-    -webkit-transform: $val;
-    -moz-transform: $val;
-    -ms-transform: $val;
-    -o-transform: $val;
-    transform: $val;
-}
-/* --End of Mixins-- */
-
-/* --Header Style-- */
-.header-container{position: relative; display: block; height: 326px; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);}
+/*--Header Style--*/
+.header-container{@extend %text-shadow; position: relative; display: block; height: 326px;}
 .site-title{color: #ffffff; font-size: 80px;}
 .site-description{font-size: 14px; color: #ffffff; margin-top: 1em;}
 .nav-container{position: absolute; bottom: 0; left: 0; right: 0;}
 .navbar{display: inline-table;}
 .navbar-nav{display: inline-block;}
-/* --End of Header Style-- */
-/* --Navbar Style-- */
+/*--End of Header Style--*/
+/*--Navbar Style--*/
  .navbar-ls{width: 100%; text-align: center; border: none; border-radius: 0; min-height: auto; margin-bottom: 0; background-color: rgba(255, 255, 255, 0.1);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   ul{float: none;}
@@ -80,4 +61,56 @@ body{font-family: 'Raleway', sans-serif;}
     a{color:#000;}
   }
 }
-/* --End of Navbar Style-- */
+/*--End of Navbar Style--*/
+
+/*-Standard Post Format Style-*/
+article{margin-bottom: 80px;}
+h1{ font-size: 48px; font-weight:200;
+  &.entry-title{ line-height: 1.5em; margin:40px 0 0; padding: 0; 
+    &:before, &:after { content: '~'; display: inline-block; position: relative; }
+    &:before{ margin-right: 10px; }
+    &:after{ margin-left: 10px;}
+  }
+}
+.entry-meta{ font-size: 13px; font-weight: 300; color: $light-grey; margin-bottom: 12px;
+  a{ font-weight: 500; color: $light-grey;
+    &:hover,
+    &:focus{ color: $dark-grey; }
+   }
+}
+.standard-featured-link{display: block; position: relative;}
+.standard-featured{ height: 330px; display: block;}
+.entry-excerpt{ margin: 30px 0 16px;
+  p{ font-size: 17px; line-height: 1.5em; font-weight: 300; letter-spacing: 0.02em;}
+}
+.button-container{ margin-bottom: 30px;}
+.btn-ls{@include animate(all, 320ms); text-transform: uppercase; font-size: 14px; font-weight: 300; color: $light-grey; padding: 8px 12px; border-radius: 0;
+border: 1px solid $light-grey; background-color: transparent;
+  &:hover,
+  &:focus{ color: #ffffff; border-color: $dark-grey; background-color: $dark-grey;}
+  
+}
+.entry-footer{padding: 10px 5px; border-bottom: 4px solid $lighter-grey; color: $light-grey; text-transform: uppercase;
+  a{ color: $light-grey; display: inline-block; font-size: 12px;}
+  .tags-list{
+    a{padding: 0 4px;}
+  }
+}
+/*-End Of The Standard Post Format Style-*/
+
+/*-Image Post Format Style-*/
+.ls-format-image{ margin-top: 50px;
+  .entry-header{height: 600px; @extend %text-shadow; position: relative;}
+  h1,
+  .entry-meta,
+  .entry-header{ color: #ffffff;
+    a{color: #ffffff;}
+  }
+  h1{padding-top: 10px;}
+}
+.entry-excerpt{
+  &.image-caption{@extend %background-gradient; position: absolute; left: 0; bottom: 0; right: 0; margin: 30px 0 0px;
+    p{margin:40px 0;}
+  }
+}
+/*-End of Image Post Format Style-*/
