@@ -11,7 +11,7 @@
 
     <?php if(ls_get_attachment()):  
         $attachments = ls_get_attachment(7);
-        //var_dump($attachments);
+        
      ?> 
      <div id="post-gallery-<?php the_ID(); ?>" class="carousel slide ls-carousel-thumb" data-ride="carousel">
         <div class="carousel-inner" role="listbox">

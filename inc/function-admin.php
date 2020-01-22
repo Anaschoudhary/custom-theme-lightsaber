@@ -121,7 +121,7 @@ function ls_contact_field_cb(){
  }
  function ls_post_formats_field_callback(){
      $options = get_option('post_formats');
-     $formats = array('aside', 'gallery', 'links', 'image', 'quote', 'status', 'video', 'audio', 'chat');
+     $formats = array('aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat');
      $output = '';
      foreach($formats as $format){
          $checked = (@$options[$format] == 1 ? 'checked' : '');

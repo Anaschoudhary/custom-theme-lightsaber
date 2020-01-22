@@ -147,3 +147,10 @@ function ls_get_bs_slides($attachments){
 				endfor;
 return $output;
 }
+
+function ls_grab_url(){
+	if(!preg_match('/<a\s[^>]*?href=[\'"](.+?)[\'"]/i', get_the_content(), $link)){
+		return false;
+	}
+	return esc_url_raw($link[1]);
+}
