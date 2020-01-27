@@ -62,9 +62,8 @@ a{
 }
 
 /*-Standard Post Format Style-*/
-article{padding-top: 40px; padding-bottom: 40px;
-  &:first-child{padding-top: 80px;}
-}
+article{padding-top: 40px; padding-bottom: 40px;}
+
 h1{ font-size: 48px; font-weight:200;
   &.entry-title{ line-height: 1.5em; margin:0; padding: 0; 
     &:before, &:after { content: '~'; display: inline-block; position: relative; }
@@ -246,6 +245,21 @@ border: 1px solid $light-grey; background-color: transparent;
 }
 
 /* Ajax Loading Btn  */
+.container-load-previous{margin-top: 40px;margin-bottom: -40px;
+}
+
+.ls-posts-container{
+  padding-top: 40px;
+  article{
+    @include animate(all, 320ms);
+    @include transform(translateY(100px));
+    opacity: 0;
+    &.reveal{
+      @include transform(translateY(0));
+      opacity: 1;
+    }
+  }
+}
 .btn-ls-load{
   display: block;
   width: 200px;

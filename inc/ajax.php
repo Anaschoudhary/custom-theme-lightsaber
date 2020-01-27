@@ -13,20 +13,45 @@ add_action('wp_ajax_ls_load_more', 'ls_load_more');
  function ls_load_more(){
      
     $paged = $_POST["page"]+1;
+    $prev = $_POST["prev"];
+
+    if($prev == 1 && $_POST["page"] != 1){
+        $paged =$_POST["page"]-1;
+    }
 
     $query = new WP_Query(array(
         'post_type' => 'post',
+        'post_status' => 'publish',
         'paged' => $paged
     ));
 
     if( $query->have_posts() ):
-        while( $query->have_posts() ): $query->the_post();
+        echo '<div class="page-limit" data-page="/custom-theme/page/'.$paged.'">';
+            while( $query->have_posts() ): $query->the_post();
 
-            get_template_part('template-parts/content', get_post_format() );
+                get_template_part('template-parts/content', get_post_format() );
 
-        endwhile; 
+            endwhile; 
+        echo '</div>';
+        else: 0;
     endif;
     wp_reset_postdata();
 
     die();
  }
+
+ function ls_check_paged($num = null){
+     $output = '';
+     if(is_paged() ){ 
+         $output = '/custom-theme/page/'.get_query_var('paged');    
+     }
+     if($num == 1){
+         $paged = (get_query_var('paged') == 0 ? 1 : get_query_var('paged'));
+         return $paged;
+         
+      } else{
+          return $output;
+      }
+}
+
+ 
