@@ -46,12 +46,15 @@ add_action('admin_enqueue_scripts', 'lightsaber_load_admin_scripts');
     wp_enqueue_style('bootstrap', get_stylesheet_directory_uri().'/css/bootstrap.min.css');
     wp_enqueue_style('lightsaber', get_stylesheet_directory_uri().'/css/ls.css');
     wp_enqueue_style('raleway', 'https://fonts.googleapis.com/css?family=Raleway&display=swap');
+    wp_enqueue_style( 'dashicons' );
 
     wp_deregister_script('jquery');
     wp_register_script('jquery', get_stylesheet_directory_uri().'/js/jquery.js', false, '3.4.1', true);
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', array('jquery'), '3.4.1', true);
     wp_enqueue_script('ls', get_stylesheet_directory_uri().'/js/ls.js', array('jquery'), '1.0.0', true);
+    wp_register_script('popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js');
+    wp_enqueue_script('popper');
     
  }
 

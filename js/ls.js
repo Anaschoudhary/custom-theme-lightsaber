@@ -6,19 +6,30 @@ jQuery(document).ready(function($){
 
     /*variables decalarations */
      
-    var carousel = '.ls-carousel-thumb';
+    // var carousel = '.ls-carousel-thumb';
     var last_scroll = 0;
 
     /*carousel function*/
-    ls_get_bs_thumbs( carousel );
+    // ls_get_bs_thumbs( carousel );
 
-    $(carousel).on('slid.bs.carousel', function(){
-        ls_get_bs_thumbs( carousel );
+    // $(carousel).on('slid.bs.carousel', function(){
+    //     ls_get_bs_thumbs( carousel );
+    // });
+    $(document).on('click', '.ls-carousel-thumb', function(){
+        var id = $("#" + $(this).attr("id"));
+        $(id).on('slid.bs.carousel', function(){
+            ls_get_bs_thumbs(id);
+        });
     });
 
-    function ls_get_bs_thumbs( carousel ){
-        var nextThumb = $('.carousel-item.active').find('.next-image-preview').data('image');
-        var prevThumb = $('.carousel-item.active').find('.prev-image-preview').data('image');
+    $(document).on('mouseenter', '.ls-carousel-thumb', function(){
+        var id = $("#" + $(this).attr("id"));
+        ls_get_bs_thumbs(id);    
+    });
+
+    function ls_get_bs_thumbs( id ){
+        var nextThumb = $(id).find(".carousel-item.active").find('.next-image-preview').data('image');
+        var prevThumb = $(id).find(".carousel-item.active").find('.prev-image-preview').data('image');
         $(carousel).find('.ctrljs.right').find('.thumbnail-container').css({'background-image': 'url('+nextThumb+')'});
         $(carousel).find('.ctrljs.left').find('.thumbnail-container').css({'background-image': 'url('+prevThumb+')'});
     }
@@ -31,9 +42,14 @@ jQuery(document).ready(function($){
         var newPage = page+1;
         var ajaxurl = that.data('url');
         var prev = that.data('prev');
+        var archive = that.data('archive');
 
         if(typeof prev == 'undefined'){
             prev = 0;
+        }
+
+        if(typeof archive == 'undefined'){
+            archive = 0;
         }
 
         that.addClass("loading").find('.text').slideUp(320);
@@ -45,6 +61,7 @@ jQuery(document).ready(function($){
             data:{ 
                 page: page,  
                 prev: prev,
+                archive: archive,
                 action: 'ls_load_more' //php function
             },
             error: function(respone){
@@ -110,6 +127,9 @@ jQuery(document).ready(function($){
     /*helper function*/
     function revealPosts(){
 
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="popover"]').popover();
+        
         var posts = $('article:not(.reveal)');
         var i = 0;
 
